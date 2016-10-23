@@ -1,0 +1,2 @@
+<div style="margin-top: 15px;" class="alert alert-danger" onclick="this.classList.add('hidden');">
+<span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span> <strong>Error: </strong><?= h($message) ?></div>
