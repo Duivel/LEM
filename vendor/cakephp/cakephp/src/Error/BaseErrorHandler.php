@@ -60,7 +60,6 @@ abstract class BaseErrorHandler
      */
     public function register()
     {
-    	Log::info('register successfully!');
         $level = -1;
         if (isset($this->_options['errorLevel'])) {
             $level = $this->_options['errorLevel'];
@@ -145,7 +144,7 @@ abstract class BaseErrorHandler
         }
         $this->_displayError($data, $debug);
         $this->_logError($log, $data);
-		
+
         return true;
     }
 
@@ -217,6 +216,7 @@ abstract class BaseErrorHandler
         $this->_logError(LOG_ERR, $data);
 
         $this->handleException(new FatalErrorException($description, 500, $file, $line));
+
         return true;
     }
 
@@ -380,7 +380,6 @@ abstract class BaseErrorHandler
      */
     public static function mapErrorCode($code)
     {
-//     	pr($code);exit();
         $levelMap = [
             E_PARSE => 'error',
             E_ERROR => 'error',

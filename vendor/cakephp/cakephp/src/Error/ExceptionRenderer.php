@@ -190,7 +190,6 @@ class ExceptionRenderer
         if ($unwrapped instanceof CakeException && $isDebug) {
             $this->controller->set($unwrapped->getAttributes());
         }
-        
 
         return $this->_outputMessage($template);
     }

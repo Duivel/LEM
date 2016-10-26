@@ -22,7 +22,8 @@ class SavingsController extends UserAppController
 	{
 		$this->LastAccess->setLastAccess();
 		$savingTable = TableRegistry::get('Savings');
-		$savings = $savingTable->findByUserId(LoginUser::getLogin(), FALSE);
+		$savings = $savingTable->findAllByUser(LoginUser::getLogin(), FALSE);
+		//$savings = $savingTable->findByUserId(LoginUser::getLogin(), FALSE);
 		$this->set('savings', $savings);
 		$this->_view();
 	}
