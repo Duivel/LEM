@@ -18,7 +18,6 @@ namespace Cake\Error;
 
 use Cake\Core\App;
 use Exception;
-use Cake\Log\Log;
 
 /**
  * Error Handler provides basic error and exception handling for your application. It captures and
@@ -180,11 +179,11 @@ class ErrorHandler extends BaseErrorHandler
      */
     protected function _sendResponse($response)
     {
-		if (is_string($response)) {
-			echo $response;
-			
-			return;
-		}
-		$response->send();
+        if (is_string($response)) {
+            echo $response;
+
+            return;
+        }
+        $response->send();
     }
 }

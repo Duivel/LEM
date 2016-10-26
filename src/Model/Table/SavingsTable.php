@@ -31,9 +31,18 @@ class SavingsTable extends AppTable
 				'conditions' => ['Users.del_flg' => DelFlag::$ALIVE[CodePattern::$CODE]]
 		]);
 	}
-	
+
 	public function findAllByUser($user_id, $isHomePage = FALSE)
 	{
+		$options = [
+				'conditions' => [
+				 		parent::eq('Savings.user_id', $user_id),
+						parent::eq('Savings.del_flg', DelFlag::$ALIVE[CodePattern::$CODE])
+				],
+				'fields' => ['Savings.month', 'Savings.user_id', 'Savings.expense', 'Savings.income', 'Savings.saving', 'Savings.created', 'Savings.modified'],
+				'order' => ['Savings.month' => 'DESC']
+		];
+
 		if ($isHomePage) {
 			$options = [
 					'conditions' => [
@@ -44,17 +53,7 @@ class SavingsTable extends AppTable
 					'order' => ['Savings.month' => 'desc'],
 					'limit' => '6'
 			];
-		} else {
-			$options = [
-					'conditions' => [
-							parent::eq('Savings.user_id', $user_id),
-							parent::eq('Savings.del_flg', DelFlag::$ALIVE[CodePattern::$CODE])
-					],
-					'fields' => ['Savings.month', 'Savings.user_id', 'Savings.expense', 'Savings.income', 'Savings.saving'],
-					'order' => ['Savings.month' => 'desc']
-			];
-		}
-		
+		} 
 		$query = $this->find('all', $options);
 		return $query->all();
 	}

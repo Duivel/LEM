@@ -77,13 +77,9 @@ class ErrorHandlerMiddleware
      */
     public function __invoke($request, $response, $next)
     {
-    	
         try {
             return $next($request, $response);
         } catch (\Exception $e) {
-        	if ($e->getCode() >= 500) {
-        		 Log::info('Error ! Sending mail !');
-        	}
             return $this->handleException($e, $request, $response);
         }
     }
@@ -102,6 +98,7 @@ class ErrorHandlerMiddleware
         try {
             $res = $renderer->render();
             $this->logException($request, $exception);
+
             return ResponseTransformer::toPsr($res);
         } catch (\Exception $e) {
             $this->logException($request, $e);
@@ -111,6 +108,7 @@ class ErrorHandlerMiddleware
             $response = $response->withStatus(500)
                 ->withBody($body);
         }
+
         return $response;
     }
 
@@ -132,6 +130,7 @@ class ErrorHandlerMiddleware
             return new $class($exception);
         }
         $factory = $this->renderer;
+
         return $factory($exception);
     }
 
@@ -156,7 +155,7 @@ class ErrorHandlerMiddleware
                 }
             }
         }
-        
+
         Log::error($this->getMessage($request, $exception));
     }
 
